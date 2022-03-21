@@ -31,5 +31,39 @@ namespace H4._01.RegisterNLogin.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login([FromForm]UserLoginViewModel userLoginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // kortsluiten voor 1 hardgecodeerde gebruiker
+                // normaal gezien hier controle van de data in bv een database
+                string validEmail = "bert@howest.be";
+                string validPassword = "testtest";
+
+                if(userLoginViewModel.Email.ToLower() == validEmail.ToLower() &&
+                    userLoginViewModel.Password == validPassword)
+                {
+                    return RedirectToAction(nameof(LoginSuccess));
+                } else
+                {
+                    ModelState.AddModelError("", "You entered invalid credentials");
+                }
+            }
+            return View(userLoginViewModel);
+        }
+
+        public IActionResult LoginSuccess()
+        {
+            return View();
+        }
     }
 }
