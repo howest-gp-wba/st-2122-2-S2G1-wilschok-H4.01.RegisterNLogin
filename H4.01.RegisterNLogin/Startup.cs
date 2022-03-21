@@ -49,6 +49,10 @@ namespace H4._01.RegisterNLogin
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "RegistrationSucces",
+                    pattern: "thanks-for-registering",
+                    defaults: new { Controller = "Users", Action = "RegisterSuccess" });
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
